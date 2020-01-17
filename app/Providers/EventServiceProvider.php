@@ -2,9 +2,8 @@
 
 namespace App\Providers;
 
-use App\Events\UserLoginEvent;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use App\Listeners\PassportAccessTokenCreated;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -16,6 +15,9 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         'App\Events\UserLoginEvent' => [
             'App\Listeners\UserLoginListener',
+        ],
+        'Laravel\Passport\Events\AccessTokenCreated' => [
+            PassportAccessTokenCreated::class,
         ],
     ];
 

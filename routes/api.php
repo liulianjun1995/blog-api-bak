@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -11,8 +10,6 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-
 Route::get('/carousels', 'Api\CarouselController@list');
 
 Route::get('/posts', 'Api\PostController@index');
@@ -32,7 +29,7 @@ Route::get('/category/{name}', 'Api\CategoryController@articles');
 
 Route::get('/tag/{name}', 'Api\TagController@articles');
 
-Route::group(['middleware' => 'auth:api'], function(){
+Route::group(['middleware' => ['auth:api', 'scopes:blog-web']], function(){
     Route::get('user', 'Api\UserController@user');
 
     Route::post('comment/post/{token}', 'Api\UserController@comment');

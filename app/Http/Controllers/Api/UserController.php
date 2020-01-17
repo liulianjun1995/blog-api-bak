@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Comments;
 use App\Models\PostPraise;
-use App\Models\Posts;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class UserController extends ApiController
@@ -15,7 +15,7 @@ class UserController extends ApiController
         return $this->success($user);
     }
 
-    public function comment(Request $request, Posts $posts, $token)
+    public function comment(Request $request, Post $posts, $token)
     {
         $post_id = decode_id($token);
 
@@ -77,7 +77,7 @@ class UserController extends ApiController
         ]);
     }
 
-    public function praise(Request $request, Posts $posts, $token)
+    public function praise(Request $request, Post $posts, $token)
     {
         $id = decode_id($token);
         if ($id <= 0 || !($post = $posts->query()->find($id))) {

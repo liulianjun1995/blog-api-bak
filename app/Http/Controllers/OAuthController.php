@@ -39,7 +39,7 @@ class OAuthController extends Controller
                     ]
             );
             if ($result) {
-                $token = 'Bearer ' . $result->createToken('Blog')->accessToken;
+                $token = 'Bearer ' . $result->createToken('Blog', ['blog-web'])->accessToken;
             }
         } catch (\Exception $e) {
 //            return $e->getMessage();

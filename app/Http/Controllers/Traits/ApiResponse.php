@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Api\Traits;
+namespace App\Http\Controllers\Traits;
+
+use App\Http\Resources\BaseListItem;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 trait ApiResponse
 {
@@ -39,5 +42,31 @@ trait ApiResponse
     {
         $this->error = trim($message);
         return $this->respond($code, $respond_data, $message);
+    }
+
+    /**
+     * 分页
+     * @param LengthAwarePaginator $paginator
+     * @param string $class
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function page(LengthAwarePaginator $paginator, $class = BaseListItem::class)
+    {
+        $items = [];
+
+        foreach($paginator->items() as $item) {
+            $items[] = new $class($item);
+        }
+
+        $res = [
+            'code'          => 20000,
+            'items'         => $items,
+            'pageSize'      => $paginator->perPage(),
+            'currentPage'   =>$paginator->currentPage(),
+            'total'         => $paginator->total(),
+            'totalPage'     => $paginator->lastPage()
+        ];
+
+        return response()->json($res);
     }
 }

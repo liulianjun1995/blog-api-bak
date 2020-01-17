@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Posts extends Model
+class Post extends Model
 {
     use SoftDeletes;
 
@@ -21,7 +21,7 @@ class Posts extends Model
 
     public function admin()
     {
-        return $this->belongsTo(Admins::class, 'user_id');
+        return $this->belongsTo(Admin::class, 'user_id');
     }
 
     public function comments()

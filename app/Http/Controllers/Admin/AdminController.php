@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Traits\ApiResponse;
 use App\Http\Controllers\Controller;
 
-class ApiController extends Controller
+class AdminController extends Controller
 {
     use ApiResponse;
 }

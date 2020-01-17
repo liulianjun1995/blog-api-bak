@@ -19,6 +19,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
+        \App\Http\Middleware\PassportCustomProviderAccessToken::class
     ];
 
     /**
@@ -61,6 +62,10 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'IpLog' => \App\Http\Middleware\IpLogMiddleware::class,
+        'scopes' => \Laravel\Passport\Http\Middleware\CheckScopes::class,
+        'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class,
+        'client' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
+        'passport-administrators' => \App\Http\Middleware\PassportCustomProvider::class,
     ];
 
     /**

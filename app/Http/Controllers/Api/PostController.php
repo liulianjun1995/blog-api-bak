@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Comments;
-use App\Models\Posts;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends ApiController
 {
-    public function index(Request $request, Posts $posts)
+    public function index(Request $request, Post $posts)
     {
         $fields = ['id', 'id as token', 'title', 'abstract', 'category_id', 'cover', 'content', 'is_recommend', 'is_top', 'view_count', 'created_at'];
         $list =  $posts->select($fields)->withCount('comments')->withCount('praises')
@@ -27,7 +27,7 @@ class PostController extends ApiController
         return $this->success($list);
     }
 
-    public function top(Request $request, Posts $posts)
+    public function top(Request $request, Post $posts)
     {
         if (Redis::connection()->exists('top_posts')) {
             $list = json_decode(Redis::connection()->get('top_posts'));
@@ -53,7 +53,7 @@ class PostController extends ApiController
         return $this->success($list);
     }
 
-    public function recommend(Request $request, Posts $posts)
+    public function recommend(Request $request, Post $posts)
     {
         if (Redis::connection()->exists('recommend_posts')) {
             $list = json_decode(Redis::connection()->get('recommend_posts'));
@@ -71,7 +71,7 @@ class PostController extends ApiController
         return $this->success($list);
     }
 
-    public function hot(Request $request, Posts $posts)
+    public function hot(Request $request, Post $posts)
     {
         if (Redis::connection()->exists('hot_posts')) {
             $list = json_decode(Redis::connection()->get('hot_posts'));
@@ -89,7 +89,7 @@ class PostController extends ApiController
         return $this->success($list);
     }
 
-    public function show(Request $request, Posts $posts, $token)
+    public function show(Request $request, Post $posts, $token)
     {
         $id = decode_id($token);
         $fields = ['id', 'id as token', 'title', 'abstract', 'category_id', 'cover', 'content', 'is_recommend', 'is_top', 'view_count', 'created_at'];

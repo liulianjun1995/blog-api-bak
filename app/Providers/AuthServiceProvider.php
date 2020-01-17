@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Laravel\Passport\Passport;
+use Laravel\Passport\RouteRegistrar;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -14,7 +14,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
+//         'App\Model' => 'App\Policies\ModelPolicy',
     ];
 
     /**
@@ -25,6 +25,15 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+
+        Passport::tokensCan([
+            'blog-web' => 'blog web api',
+            'blog-admin' => 'blog admin api',
+        ]);
+
+        Passport::routes(function (RouteRegistrar $router) {
+            $router->forAccessTokens();
+        }, ['prefix' => 'api/oauth', 'middleware' => 'passport-administrators']);
 
         Passport::personalAccessTokensExpireIn(now()->addDays(7));
 
