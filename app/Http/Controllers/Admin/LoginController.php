@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\ProxyTrait;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class LoginController extends AdminController
+class LoginController extends Controller
 {
     use ProxyTrait;
 
@@ -37,12 +38,14 @@ class LoginController extends AdminController
 
         $accessToken = $this->authenticate('admins');
 
-        return $this->success(compact('accessToken'));
+        return $this->success($accessToken);
     }
 
-    public function user(Request $request)
+    public function info(Request $request)
     {
         $user = $request->user('admin');
+
+        $user->roles = ['admin'];
 
         return $this->success($user);
     }

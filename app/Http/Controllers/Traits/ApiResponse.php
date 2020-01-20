@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Traits;
 
-use App\Http\Resources\BaseListItem;
+use App\Http\Resources\BaseItem;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 trait ApiResponse
@@ -14,7 +14,7 @@ trait ApiResponse
      * @param string $message
      * @return array
      */
-    protected function respond($code = false, $respond_data = [], $message = '') : array
+    protected function respond($code = 20001, $respond_data = [], $message = '') : array
     {
         return ['code' => $code, 'data' => $respond_data, 'message' => $message];
     }
@@ -26,7 +26,7 @@ trait ApiResponse
      * @param bool $code
      * @return array
      */
-    protected function success($respond_data = [], string $message = 'success', $code = true) : array
+    protected function success($respond_data = [], string $message = 'success', $code = 20000) : array
     {
         return $this->respond($code, $respond_data, $message);
     }
@@ -38,7 +38,7 @@ trait ApiResponse
      * @param bool $code
      * @return array
      */
-    protected function error(string $message = 'error', $respond_data = [], $code = false) : array
+    protected function error(string $message = 'error', $respond_data = [], $code = 20001) : array
     {
         $this->error = trim($message);
         return $this->respond($code, $respond_data, $message);
@@ -50,7 +50,7 @@ trait ApiResponse
      * @param string $class
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function page(LengthAwarePaginator $paginator, $class = BaseListItem::class)
+    protected function page(LengthAwarePaginator $paginator, $class = BaseItem::class)
     {
         $items = [];
 

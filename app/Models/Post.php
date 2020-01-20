@@ -21,7 +21,7 @@ class Post extends Model
 
     public function admin()
     {
-        return $this->belongsTo(Admin::class, 'user_id');
+        return $this->belongsTo(Admin::class, 'user_id', 'id');
     }
 
     public function comments()
@@ -32,5 +32,11 @@ class Post extends Model
     public function praises()
     {
         return $this->hasMany(PostPraise::class, 'post_id');
+    }
+
+    public function getCoverAttribute($value): string
+    {
+        if ($value) return env('APP_URL') . '/' . $value;
+        return '';
     }
 }

@@ -35,7 +35,7 @@ class AuthServiceProvider extends ServiceProvider
             $router->forAccessTokens();
         }, ['prefix' => 'api/oauth', 'middleware' => 'passport-administrators']);
 
-        Passport::personalAccessTokensExpireIn(now()->addDays(7));
+        Passport::tokensExpireIn(now()->addDays(7));
 
     }
 }

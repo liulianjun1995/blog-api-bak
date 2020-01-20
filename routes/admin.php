@@ -10,10 +10,16 @@ Route::group(['namespace' => 'Admin'], function(){
 
     Route::group(['middleware' => ['passport-administrators', 'client:blog-admin']], function() {
 
-        Route::get('user', 'LoginController@user');
+        Route::get('info', 'LoginController@info');
 
-        Route::group(['prefix' => 'post'], function(){
-            Route::get('list', 'UserController@user');
+        Route::group(['prefix' => 'admin'], function(){
+            Route::get('options', 'AdminController@options');
+        });
+
+        Route::group(['prefix' => 'article'], function(){
+            Route::get('list', 'ArticleController@list');
+            Route::get('detail/{id}', 'ArticleController@detail');
+            Route::get('category', 'ArticleController@category');
         });
 
     });
