@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Tags;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class TagController extends ApiController
 {
-    public function articles(Request $request, Tags $tags, $name = '')
+    public function articles(Request $request, Tag $tags, $name = '')
     {
         $fields = ['posts.id', 'posts.id as token', 'posts.title', 'posts.abstract', 'posts.category_id', 'posts.cover', 'posts.content', 'posts.is_recommend', 'posts.is_top', 'posts.view_count', 'posts.created_at'];
         if ($tag  = $tags->query()->where('title', $name)->first()) {

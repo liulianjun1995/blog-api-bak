@@ -20,6 +20,16 @@ Route::group(['namespace' => 'Admin'], function(){
             Route::get('list', 'ArticleController@list');
             Route::get('detail/{id}', 'ArticleController@detail');
             Route::get('category', 'ArticleController@category');
+            Route::get('create', 'ArticleController@create');
+            Route::post('update/{id}', 'ArticleController@update');
+            Route::post('status/{id}', 'ArticleController@changeStatus');
+            Route::post('upload-image', 'ArticleController@uploadImage');
+            Route::post('delete-image', 'ArticleController@deleteImage');
+
+            Route::get('tags', 'ArticleController@tagList');
+            Route::get('tag/{id}', 'ArticleController@tagDetail');
+            Route::post('tag/create', 'ArticleController@createTag');
+            Route::post('tag/update/{id}', 'ArticleController@updateTag');
         });
 
     });

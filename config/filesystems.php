@@ -64,7 +64,7 @@ return [
             'url' => env('AWS_URL'),
         ],
 
-        'admin' => [
+        'upload' => [
             'driver' => 'local',
             'root' => public_path('uploads'),
             'visibility' => 'public',
